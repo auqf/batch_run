@@ -33,7 +33,7 @@ service = [
 ]
 
 path = {
-        'src_path':'/home/auqf/batch_run/service_src_packge/eks_wangba',
+        'src_path':'./service_src_packge/eks_wangba',
         'dst_path':'/home'
         }
 
