@@ -22,29 +22,20 @@ class SSHConnection(object):
         self.ssh._transport = self.transport
         self.sftp = paramiko.SFTPClient.from_transport(self.transport)
         
-    def progress_bar(self, num_cur):
+    def progress_bar(self, num_cur, ip):
         rows, columns = os.popen('stty size', 'r').read().split()
         ratio = float(num_cur / 100.0)
         if int(columns) > 33:
-            percentage = int(ratio * (int(columns)-21))
-            r = '       [%s%s]%d%%\n\r' % (">"*percentage, " "*(int(columns)-percentage-21), ratio*100)
+            percentage = int(ratio * (int(columns)-40))
+            r = '       [%s%s%s]%d%%\n\r' % (">"*percentage, " "*(int(columns)-percentage-40), ip, ratio*100)
         else:
             percentage = int(ratio * 100)
-            r = '       [%s%s]%d%%\n\r' % (">"*percentage, " "*(100 - percentage), percentage)
+            r = '       [%s%s%s]%d%%%s\n\r' % (">"*percentage, " "*(100 - percentage), ip, percentage)
         sys.stdout.write(illustrate_color(r))
         sys.stdout.flush()
         
-    #def connect(self):
-    #    #paramiko.util.log_to_file('paramiko_login_log') 
-    #    self.transport = paramiko.Transport((self.ip,self.port))
-    #    self.transport.connect(username=self.username,password=self.pwd)
-    #    self.ssh = paramiko.SSHClient()
-    #    self.ssh._transport = self.transport
-    #    self.sftp = paramiko.SFTPClient.from_transport(self.transport)
-        
-
     def cmd(self,command):
-        string='\n     starting install the service on the server {}'.format(self.ip)
+        string='\n     Starting on the server {0}'.format(self.ip)
         print '{0}{1}'.format(progress_color(string),dot_color('...'))
         total_=command.__len__()
         reload(sys)
@@ -56,18 +47,19 @@ class SSHConnection(object):
         for _ in command:
             stdin, stdout, stderr = self.ssh.exec_command(_)
             result = stderr.readlines()
-            if len(result) > 0 and sum([item.count('is already installed') for item in result]) == 0:
+            if len(result) > 0 and sum([item.count('is already installed') for item in result]) == 0 and sum([item.lower().count('warning') for item in result]) == 0:
                 string = '         Error:"{0}"\n         {1}         break install at \033[5;33;40m========> \033[0m{2}%'.format(_, '         '.join(result), int(cur_))
                 print error_color(string)
-                string = '         service install failed, disconnect the connection of the server {}\n\n'.format(self.ip)
+                string = '         Installing failed, disconnect the connection of the server {0}\n\n'.format(self.ip)
                 print error_color(string)
                 break
             if command.index(_)  == total_ - 1:
-                self.progress_bar(100)
+                self.progress_bar(100,self.ip)
             else:
-                self.progress_bar(cur_)
+                self.progress_bar(cur_,self.ip)
                 cur_ += base_
-
+        
+        
     def upload(self, src_path, dst_path, tag=1):
         if tag == 1:
             name = src_path.split('/')[-1]
@@ -96,7 +88,6 @@ class SSHConnection(object):
                 src = os.path.join(src_path, f)
                 dst = os.path.join(dst_root, f)
                 self.upload(src, dst, tag)
-
 
     def close(self):
         self.transport.close()

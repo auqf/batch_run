@@ -58,11 +58,11 @@ service = [
     'cd /usr/local/src/nginx_php/ && tar xzvf phpredis.tar.gz    && cd phpredis    && phpize && ./configure && make -j$(nproc) && make install',
     'cd /usr/local/src/nginx_php/ && tar xzvf swoole-src.tar.gz  && cd swoole-src  && phpize && ./configure && make -j$(nproc) && make install',
     'cd /usr/local/src/nginx_php/ && tar xzvf zendopcache.tar.gz && cd zendopcache && phpize && ./configure && make -j$(nproc) && make install',
-    'cp -rf /usr/local/src/nginx_php/php.ini /etc/',
-    'cp -rf /usr/local/src/nginx_php/{nginx.conf,conf.d} /usr/local/nginx/conf',
-    'cp -rf /usr/local/src/nginx_php/status.html /usr/local/nginx/html',
-    'cp -rf /usr/local/src/nginx_php/php-fpm.conf /usr/local/php/etc/',
-    'cp -rf /usr/local/src/nginx_php/php-fpm.service /etc/init.d && chmod a+x /etc/init.d/php-fpm.service'
+    '\cp -rf /usr/local/src/nginx_php/php.ini /etc/',
+    '\cp -rf /usr/local/src/nginx_php/{nginx.conf,conf.d} /usr/local/nginx/conf',
+    '\cp -rf /usr/local/src/nginx_php/status.html /usr/local/nginx/html',
+    '\cp -rf /usr/local/src/nginx_php/php-fpm.conf /usr/local/php/etc/',
+    '\cp -rf /usr/local/src/nginx_php/php-fpm.service /etc/init.d && chmod a+x /etc/init.d/php-fpm.service'
  
     
 ]

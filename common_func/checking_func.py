@@ -14,11 +14,11 @@ def check_service((ip,port)):
         result = sock.connect((ip,int(port)))
         sock.close()
         string = '\n    the service is running or port {0} is occuping in the server {1}\n'.format(port, ip)
-        print '{}'.format(progress_color(string))
+        print '{0}'.format(progress_color(string))
         return ip
     except:
         pass
-        string = '\n     service is not running on the remote server {0} !'.format(ip)
+        string = '\n    service is not running on the remote server {0} !'.format(ip)
         print '{0}'.format(error_color(string))
-        return False
+
     time.sleep(1)

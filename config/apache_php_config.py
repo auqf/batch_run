@@ -2,20 +2,18 @@
 # coding: utf-8
 
 hosts = [
-    ['192.168.1.176',22,'root','auqf'],
-    ['192.168.1.189',22,'root','auqf']
+     ['59.46.15.211',22,'root','syszy@123']
     ]
 
 service = [
-    'yum install -y gcc gcc-c++ libjpeg-devel freetype-devel readline-devel libpng-devel libcurl-devel bzip2-devel openssl-devel libxml2-devel libtool-ltdl-devel',
+    'yum install -y gcc gcc-c++ libjpeg-devel freetype-devel readline-devel libpng-devel libcurl-devel bzip2-devel openssl-devel libxml2-devel libtool-ltdl-devel  expat-devel bison',
     'ln -s /usr/lib64/libjpeg.so /usr/lib/libjpeg.so',
     'ln -s /usr/lib64/libpng.so /usr/lib/libpng.so',
     'groupadd apache && useradd -g apache -s /sbin/nologin -M apache',
-    'echo "/usr/local/lib" > /etc/ld.so.conf.d/source.conf && ldconfig',
-    'cd /usr/local/src/apache_php/ && tar xzvf pcre.tar.gz     &&  cd pcre     && ./configure  --prefix=/usr/local/pcre   && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php/ && tar xzvf apr.tar.gz      &&  cd apr      && ./configure  --prefix=/usr/local/apr    && make -j$(nproc) && make install',
-    "cd /usr/local/src/apache_php/ && tar xzvf apr-util.tar.gz &&  cd apr-util && ./configure  --with-apr=/usr/local/apr  && make -j$(nproc) && make install",
-    'cd /usr/local/src/apache_php/ && tar xzvf httpd.tar.gz    &&  cd httpd    && ./configure --prefix=/usr/local/apache \
+    'cd /usr/local/src/apache_php_package/ && tar xzvf pcre.tar.gz     &&  cd pcre     && ./configure  --prefix=/usr/local/pcre --libdir=/usr/lib64  && make -j$(nproc) && make install',
+    'cd /usr/local/src/apache_php_package/ && tar xzvf apr.tar.gz      &&  cd apr      && ./configure  --prefix=/usr/local/apr  --libdir=/usr/lib64  && make -j$(nproc) && make install',
+    'cd /usr/local/src/apache_php_package/ && tar xzvf apr-util.tar.gz &&  cd apr-util && ./configure  --with-apr=/usr/local/apr --libdir=/usr/lib64 && make -j$(nproc) && make install',
+    'cd /usr/local/src/apache_php_package/ && tar xzvf httpd.tar.gz    &&  cd httpd    && ./configure --prefix=/usr/local/apache \
         --enable-headers \
         --enable-rewrite  \
         --disable-userdir \
@@ -32,61 +30,60 @@ service = [
         --enable-info  \
         --with-crypto \
         && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php/ && tar xzvf libmcrypt.tar.gz && cd libmcrypt && ./configure && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php/ && tar xzvf mhash.tar.gz     && cd mhash     && ./configure && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php/ && tar xzvf mcrypt.tar.gz    && cd mcrypt    && LD_LIBRARY_PATH=/usr/local/lib && ./configure && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php/ && tar xzvf php-src.tar.gz   && cd php-src   && ./configure \
-        --enable-inline-optimization \
+    'cd /usr/local/src/apache_php_package/ && tar xzvf libmcrypt.tar.gz && cd libmcrypt && ./configure  --libdir=/usr/lib64 && make -j$(nproc) && make install',
+    'cd /usr/local/src/apache_php_package/ && tar xzvf mhash.tar.gz     && cd mhash     && ./configure  --libdir=/usr/lib64 && make -j$(nproc) && make install',
+    'cd /usr/local/src/apache_php_package/ && tar xzvf mcrypt.tar.gz    && cd mcrypt    && ./configure  --libdir=/usr/lib64 && make -j$(nproc) && make install',
+    'cd /usr/local/src/apache_php_package/ && tar xzvf php-src.tar.gz   && cd php-src   && ./buildconf --force && ./configure \
+        --with-gd \
+        --with-bz2 \
+        --with-curl \
+        --with-zlib \
+        --with-pear \
+        --enable-zip \
+        --with-iconv \
+        --with-mhash \
+        --with-mcrypt \
+        --enable-soap \
+        --with-gettext \
+        --enable-pcntl \
+        --enable-shmop \
+        --with-openssl \
+        --enable-bcmath \
+        --with-readline \
         --disable-debug \
         --disable-rpath \
         --enable-shared \
         --enable-opcache \
-        --with-mysql=mysqlnd \
-        --with-mysqli=mysqlnd \
-        --with-pdo-mysql=mysqlnd \
-        --with-gettext \
-        --enable-mbstring \
-        --with-iconv \
-        --with-mcrypt \
-        --with-mhash \
-        --with-openssl \
-        --enable-bcmath \
-        --enable-soap \
-        --with-libxml-dir \
-        --enable-pcntl \
-        --enable-shmop \
         --enable-sysvsem \
         --enable-sockets \
-        --with-curl \
-        --with-zlib \
-        --enable-zip \
-        --with-bz2 \
+        --enable-mbstring \
+        --with-libxml-dir \
         --without-sqlite3 \
-        --without-pdo-sqlite \
-        --with-pear \
-        --with-apxs2=/usr/local/apache/bin/apxs \
-        --with-readline \
-        --with-config-file-path=/etc \
-        --with-config-file-scan-dir=/etc/php.d \
-        --with-gd \
         --with-png-dir=/usr \
-        --with-jpeg-dir=/usr/lib \
+        --without-pdo-sqlite \
+        --with-mysql=mysqlnd \
+        --with-mysqli=mysqlnd \
         --enable-gd-native-ttf \
+        --with-pdo-mysql=mysqlnd \
         --with-freetype-dir=/usr \
+        --with-jpeg-dir=/usr/lib \
+        --with-config-file-path=/etc \
+        --enable-inline-optimization \
+        --with-config-file-scan-dir=/etc/php.d \
+        --with-apxs2=/usr/local/apache/bin/apxs \
     && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php/ && tar xzvf phpredis.tar.gz    && cd phpredis    && phpize && ./configure && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php/ && tar xzvf swoole-src.tar.gz  && cd swoole-src  && phpize && ./configure && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php/ && tar xzvf zendopcache.tar.gz && cd zendopcache && phpize && ./configure && make -j$(nproc) && make install',
-    'cp -rf /usr/local/src/apache_php/httpd.conf /usr/local/apache/conf',
-    'cp -rf /usr/local/src/apache_php/{httpd-vhosts.conf,httpd-mpm.conf} /usr/local/apache/conf/extra/',
-    'cp -rf /usr/local/src/apache_php/php.ini /etc/',
- 
+    'cd /usr/local/src/apache_php_package/ && tar xzvf phpredis.tar.gz    && cd phpredis    && phpize && ./configure && make -j$(nproc) && make install',
+    'cd /usr/local/src/apache_php_package/ && tar xzvf swoole-src.tar.gz  && cd swoole-src  && phpize && ./configure && make -j$(nproc) && make install',
+    'cd /usr/local/src/apache_php_package/ && tar xzvf zendopcache.tar.gz && cd zendopcache && phpize && ./configure && make -j$(nproc) && make install',
+    '\cp -rf /usr/local/src/apache_php_package/php.ini /etc/',
+    '\cp -rf /usr/local/src/apache_php_package/httpd.conf /usr/local/apache/conf',
+    '\cp -rf /usr/local/src/apache_php_package/{httpd-vhosts.conf,httpd-mpm.conf} /usr/local/apache/conf/extra/'
     
 ]
 
 path = {
-        'src_path':'./service_src_packge/apache_php',
+        'src_path':'./service_src_packge/apache_php_package',
         'dst_path':'/usr/local/src'
         }
 
-service_port = 80
+#service_port = 80

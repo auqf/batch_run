@@ -21,7 +21,7 @@ service = [
     'iptables -I INPUT -p tcp -m multiport --dports 80,8088,8080,1935,1985 -j ACCEPT',
     'setenforce 0 && /etc/init.d/httpd start && sed -i "s#=enforcing#=permissive#g" /etc/selinux/config',
     'echo "sh /etc/init.d/do_video.service" >> /etc/rc.local',
-    'nohup sh /etc/init.d/do_video.service &'
+    'sh /etc/init.d/do_video.service'
     '/etc/init.d/lightpush.service start',
     '/etc/init.d/clip.service start',
     '/etc/init.d/srs start',

@@ -7,11 +7,11 @@ hosts = [
     ]
 
 service = [
-    'cp -rf /usr/share/zoneinfo/Asia/Chongqing  /etc/localtime',
+    '\cp -rf /usr/share/zoneinfo/Asia/Chongqing  /etc/localtime',
     'yum install -y vsftpd db4 db4-utils',
     'mkdir -p /home/sample && chmod 755 /home && chmod -R 777 /home/sample'
     'groupadd vsftpd && useradd -g vsftpd -s /sbin/nologin -M vsftpd',
-    'cp -rf /usr/local/src/vsftpd_package/* /etc/vsftpd/',
+    '\cp -rf /usr/local/src/vsftpd_package/* /etc/vsftpd/',
     'db_load  -T -t hash -f /etc/vsftpd/vuser_passwd  /etc/vsftpd/vuser_passwd.db',
     'service vsftpd start',
     'chkconfig vsftpd on',

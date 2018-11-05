@@ -8,7 +8,7 @@ hosts = [
 
 service = [
     'yum install -y libtool texinfo redhat-lsb httpd libxcb unzip > /dev/null 2>&1',
-    'rm -rf /home/eks && mv /home/eks_wangba /home/eks',
+    'rm -rf /home/eks > /dev/null 2>&1 && mv /home/eks_wangba /home/eks',
     'cd /home/eks;chmod a+x {chiji_dashen,chiji1,chiji2,ffmpeg,clip,lightpush,lightpush.service,clip.service}',
     'cd /home/eks && mv -f httpd.conf /etc/httpd/conf/',
     'tar xzvf /home/eks/eks_web.tar.gz -C /var/www/html && rm -rf /home/eks/eks_web.tar.gz',

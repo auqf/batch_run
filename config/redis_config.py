@@ -2,12 +2,12 @@
 # coding: utf-8
 
 hosts = [
-    ['192.168.1.176',22,'root','auqf'],
-    ['192.168.1.189',22,'root','auqf']
+    ['59.46.15.213',22,'root','syszy@123']
     ]
 
 service = [
-    'cd /usr/local/src/redis_package && tar xzvf redis.tar.gz  && cd redis && make -j$(nproc) && make -prefix=/usr/bin/redis install',
+    'yum install -y gcc',
+    'cd /usr/local/src/redis_package && tar xzvf redis.tar.gz  && cd redis && make -j$(nproc) 2>&1 /dev/null && make PREFIX=/usr/local/redis install',
     'mv -f /usr/local/src/redis_package/conf /usr/local/redis/conf',
     'cd /usr/local/src/redis_package && chmod a+x redis.service && mv redis.service /etc/init.d/',
     'service redis.service start',
@@ -17,7 +17,7 @@ service = [
 ]
 
 path = {
-        'src_path':'./service_src_packge/redis',
+        'src_path':'./service_src_packge/redis_package',
         'dst_path':'/usr/local/src/'
         }
 

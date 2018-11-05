@@ -7,7 +7,7 @@ hosts = [
     ]
 
 service = [
-    'cp -rf /usr/share/zoneinfo/Asia/Chongqing  /etc/localtime',
+    '\cp -rf /usr/share/zoneinfo/Asia/Chongqing  /etc/localtime',
     'pwd'
 ]
 
