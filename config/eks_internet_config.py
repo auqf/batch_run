@@ -28,7 +28,7 @@ service = [
     'chkconfig srs on',
     'chkconfig httpd on',
     'sh /etc/init.d/do_video.service'
-    'ffmpeg_ingest &'
+    'ffmpeg_ingest > /dev/null 2>&1  &'
 ]
 
 path = {
