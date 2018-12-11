@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 # coding: utf-8
 
-hosts = [['192.168.1.177',22,'root','auqf']
+hosts = [['192.168.1.226',22,'root','rootroot']
     ]
 
 service = [
     'yum install -y libtool texinfo redhat-lsb httpd libxcb unzip > /dev/null 2>&1',
     'rm -rf /home/eks && mv /home/eks_internet /home/eks',
-    'cd /home/eks;chmod a+x {chiji_dashen,chiji1,chiji2,ffmpeg,clip,lightpush,dynamic_ingest,lightpush.service,clip.service,dynamic_ingest.service, do_video.service}',
+    'cd /home/eks;chmod a+x {chiji_dashen,chiji1,chiji2,ffmpeg,clip,lightpush,dynamic_ingest,lightpush.service,clip.service,dynamic_ingest.service,do_video.service}',
     'cd /home/eks && mv -b httpd.conf /etc/httpd/conf/',
     'tar xzvf /home/eks/eks_web.tar.gz -C /var/www/html && rm -rf /home/eks/eks_web.tar.gz',
     'cd /home/eks && mv -f {clip,lightpush,dynamic_ingest} /usr/bin/',
@@ -21,7 +21,6 @@ service = [
     'iptables -I INPUT -p tcp -m multiport --dports 80,8088,8080,1935,1985 -j ACCEPT',
     'setenforce 0 && /etc/init.d/httpd start && sed -i "s#=enforcing#=permissive#g" /etc/selinux/config',
     'echo "sh /etc/init.d/do_video.service" >> /etc/rc.local',
-    'sh /etc/init.d/do_video.service'
     '/etc/init.d/lightpush.service start',
     '/etc/init.d/clip.service start',
     '/etc/init.d/srs start',
@@ -29,7 +28,8 @@ service = [
     'chkconfig lightpush.service on',
     'chkconfig clip.service on',
     'chkconfig srs on',
-    'chkconfig httpd on'
+    'chkconfig httpd on',
+    'sh /etc/init.d/do_video.service'
 ]
 
 path = {
