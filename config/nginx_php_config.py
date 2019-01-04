@@ -12,8 +12,8 @@ service = [
     'ln -s /usr/lib64/libpng.so /usr/lib/libpng.so',
     'groupadd www && useradd -g www -s /sbin/nologin -M www',
     'echo "/usr/local/lib" > /etc/ld.so.conf.d/source.conf && ldconfig',
-    'cd /usr/local/src/nginx_php/ && tar xzvf pcre.tar.gz      && cd pcre      && ./configure  --prefix=/usr/local/pcre   && make -j$(nproc) && make install',
-    'cd /usr/local/src/nginx_php/ && tar xzvf nginx.tar.gz     && cd nginx     && ./configure  --prefix=/usr/local/nginx  && make -j$(nproc) && make install',
+    'cd /usr/local/src/nginx_php/ && tar xzvf pcre.tar.gz      && cd pcre      && ./configure  --libdir=/usr/lib64 --prefix=/usr/local/pcre   && make -j$(nproc) && make install',
+    'cd /usr/local/src/nginx_php/ && tar xzvf nginx.tar.gz     && cd nginx     && ./configure  --libdir=/usr/lib64 --prefix=/usr/local/nginx  && make -j$(nproc) && make install',
     'cd /usr/local/src/nginx_php/ && tar xzvf libmcrypt.tar.gz && cd libmcrypt && ./configure  --libdir=/usr/lib64        && make -j$(nproc) && make install',
     'cd /usr/local/src/nginx_php/ && tar xzvf php-src.tar.gz   && cd php-src   && ./buildconf --force && ./configure  --prefix=/usr/local/php \
         --with-gd \

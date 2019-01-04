@@ -7,13 +7,18 @@ hosts = [
     ]
 
 service = [
-        'pwd',
-        'ls -lhrt ./'
+        'cd /usr/local/src/init_server && tar xzvf DenyHosts-2.6.tar.gz && cd DenyHosts-2.6 && python setup.py install',
+        'cd /usr/share/denyhosts && cp denyhosts.cfg-dist denyhosts.cfg && cp daemon-control /etc/init.d/daemon-control',
+        '/etc/init.d/daemon-control start',
+        'chkconfig daemon-control on',   
+        'cp /usr/local/src/block_unauth_login.sh /home',
+        'echo "* */1 * * * sh /home/block_unauth_login.sh"| crontab -',
+        'echo -e "net.ipv4.tcp_tw_reuse = 1\nnet.ipv4.tcp_tw_recycle = 1\nnet.ipv4.tcp_fin_timeout = 30\nnet.ipv4.tcp_keepalive_time = 1200\nnet.ipv4.tcp_max_syn_backlog = 8192\nnet.ipv4.tcp_max_tw_buckets = 5000" >> /etc/sysctl.conf',
 ]
 
 path = {
-        'src_path':'./service_src_packge/srs-master.zip',
+        'src_path':'./init_server',
         'dst_path':'/usr/local/src'
         }
 
-service_port = 1935
+service_port = 22

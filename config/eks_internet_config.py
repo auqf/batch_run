@@ -5,7 +5,7 @@ hosts = [['192.168.1.226',22,'root','rootroot']
     ]
 
 service = [
-    'yum install -y libtool texinfo redhat-lsb httpd libxcb unzip > /dev/null 2>&1',
+    'yum install -y libtool texinfo redhat-lsb httpd libxcb unzip sshpass> /dev/null 2>&1',
     'rm -rf /home/eks && mv /home/eks_internet /home/eks',
     'cd /home/eks;chmod a+x {chiji_dashen,chiji1,chiji2,ffmpeg,clip,clip.service,do_video.service,ffmpeg_ingest}',
     'cd /home/eks && mv -b httpd.conf /etc/httpd/conf/',
@@ -27,8 +27,8 @@ service = [
     'chkconfig clip.service on',
     'chkconfig srs on',
     'chkconfig httpd on',
-    'sh /etc/init.d/do_video.service'
-    'ffmpeg_ingest > /dev/null 2>&1  &'
+    'sh /etc/init.d/do_video.service',
+    'sh /home/eks/run.sh'
 ]
 
 path = {

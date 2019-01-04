@@ -2,8 +2,7 @@
 # coding: utf-8
 
 hosts = [
-    ['192.168.1.176',22,'root','auqf'],
-    ['192.168.1.189',22,'root','auqf']
+    ['112.126.65.39',5520,'root','aBlade1Ysx#888!']
     ]
 
 service = [
@@ -12,6 +11,7 @@ service = [
     'mkdir -p /home/sample && chmod 755 /home && chmod -R 777 /home/sample'
     'groupadd vsftpd && useradd -g vsftpd -s /sbin/nologin -M vsftpd',
     '\cp -rf /usr/local/src/vsftpd_package/* /etc/vsftpd/',
+    'mv -f /etc/vsftpd/vsftpd /etc/pam.d/',
     'db_load  -T -t hash -f /etc/vsftpd/vuser_passwd  /etc/vsftpd/vuser_passwd.db',
     'service vsftpd start',
     'chkconfig vsftpd on',
