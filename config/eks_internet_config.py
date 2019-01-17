@@ -1,10 +1,11 @@
 #! /usr/bin/env python
 # coding: utf-8
 
-hosts = [['192.168.1.226',22,'root','rootroot']
+hosts = [['124.115.159.83',22,'root','ems.1234']
     ]
 
 service = [
+    'rpm -ivh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm',
     'yum install -y libtool texinfo redhat-lsb httpd libxcb unzip sshpass> /dev/null 2>&1',
     'rm -rf /home/eks && mv /home/eks_internet /home/eks',
     'cd /home/eks;chmod a+x {chiji_dashen,chiji1,chiji2,ffmpeg,clip,clip.service,do_video.service,ffmpeg_ingest}',
@@ -27,8 +28,8 @@ service = [
     'chkconfig clip.service on',
     'chkconfig srs on',
     'chkconfig httpd on',
-    'sh /etc/init.d/do_video.service',
-    'sh /home/eks/run.sh'
+    'echo "\n" | sh /etc/init.d/do_video.service &',
+    'echo "\n" | sh /home/eks/run.sh &'
 ]
 
 path = {

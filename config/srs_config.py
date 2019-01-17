@@ -2,8 +2,7 @@
 # coding: utf-8
 
 hosts = [
-        ['192.168.1.176',22,'root','auqf'],
-        ['172.60.1.228',22,'root','rootroot']
+        ['ssh.52526.cn',22210,'root','ems.1234']
     ]
 
 service = ['cd /usr/local/src/ && unzip -o srs-master.zip;cd srs-master/trunk && ./configure && make -j$(nproc) && make install',

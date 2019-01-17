@@ -71,13 +71,13 @@ service = [
         --enable-inline-optimization \
         --with-config-file-scan-dir=/etc/php.d \
         --with-apxs2=/usr/local/apache/bin/apxs \
-    && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php_package/ && tar xzvf phpredis.tar.gz    && cd phpredis    && phpize && ./configure && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php_package/ && tar xzvf swoole-src.tar.gz  && cd swoole-src  && phpize && ./configure && make -j$(nproc) && make install',
-    'cd /usr/local/src/apache_php_package/ && tar xzvf zendopcache.tar.gz && cd zendopcache && phpize && ./configure && make -j$(nproc) && make install',
-    '\cp -rf /usr/local/src/apache_php_package/php.ini /etc/',
-    '\cp -rf /usr/local/src/apache_php_package/httpd.conf /usr/local/apache/conf',
-    '\cp -rf /usr/local/src/apache_php_package/{httpd-vhosts.conf,httpd-mpm.conf} /usr/local/apache/conf/extra/'
+        && make -j$(nproc) && make install',
+        'cd /usr/local/src/apache_php_package/ && tar xzvf phpredis.tar.gz    && cd phpredis    && phpize && ./configure && make -j$(nproc) && make install',
+        'cd /usr/local/src/apache_php_package/ && tar xzvf swoole-src.tar.gz  && cd swoole-src  && phpize && ./configure && make -j$(nproc) && make install',
+        'cd /usr/local/src/apache_php_package/ && tar xzvf zendopcache.tar.gz && cd zendopcache && phpize && ./configure && make -j$(nproc) && make install',
+        '\cp -rf /usr/local/src/apache_php_package/php.ini /etc/',
+        '\cp -rf /usr/local/src/apache_php_package/httpd.conf /usr/local/apache/conf',
+        '\cp -rf /usr/local/src/apache_php_package/{httpd-vhosts.conf,httpd-mpm.conf} /usr/local/apache/conf/extra/'
     
 ]
 
