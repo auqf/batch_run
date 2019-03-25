@@ -10,6 +10,7 @@ def check_service((ip,port)):
     print '{0} {1}'.format(illustrate_color(string), dot_color('...'))
     time.sleep(1)
     sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    sock.settimeout(5)
     try:
         result = sock.connect((ip,int(port)))
         sock.close()
